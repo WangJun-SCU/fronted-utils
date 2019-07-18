@@ -52,21 +52,21 @@ var vue = new Vue({
         //String转hash
         str2hash() {
             let str = this.str;
-            console.log(str);
             let hash = new Number(0);
-            console.log(str.length);
             for(let i = 0; i < str.length; i++){
                 let char = str.charAt(i);
                 hash = 31 * hash + new Number(char.charCodeAt());
-                console.log(hash);
             }
             hash = this.toJavaInt(hash);
             this.strHash = "" + hash;
         },
         /** 
          * 将js页面的number类型转换为java的int类型 
-         * @param num 
-         * @return intValue 
+         * 
+         * JavaScript中，数字存储是双进度64位浮点数。
+         * 但是位操作却会把要操作的运算元当做32位带符号的整数。
+         * 因此 & 0xFFFFFFFF不会改变原值，也可以 ^ 0 或者 | 0 都可以得到原值
+         * 来源：https://zhuanlan.zhihu.com/p/65533642
          */  
         toJavaInt(num)  
         {  
