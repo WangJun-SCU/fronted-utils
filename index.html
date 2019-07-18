@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>小工具集</title>
+	<link href="css/iview.css" rel="stylesheet"/>
+	<link href="css/utils.css" rel="stylesheet"/>
+</head>
+<body>
+	<div id="vue" class="container">
+		<h2>小工具集</h2>
+		<h3>1.时间戳转换:</h3>
+		<div style="margin: 20px 0;">
+			<i-input clearable placeholder="时间戳" v-model="timestamp"  style="width:200px;"></i-input>
+			<i-button type="primary" @click="timestamp2time">时间戳---时间</i-button>
+			<i-input clearable placeholder="时间" v-model="time" style="width:200px;"></i-input>
+		</div>
+		<div style="margin: 20px 0;">
+			<i-input clearable placeholder="时间" v-model="time" style="width:200px;"></i-input>
+			<i-button type="primary" @click="time2timestamp">时间---时间戳</i-button>
+			<i-input clearable placeholder="时间戳" v-model="timestamp" style="width:200px;"></i-input>
+		</div>
+
+		<h3>2.String类型的hashCode:</h3>
+		<div style="margin: 20px 0;">
+			<i-input clearable placeholder="字符串" v-model="str"  style="width:200px;"></i-input>
+			<i-button type="primary" @click="str2hash">字符串---Hash</i-button>
+			<i-input clearable placeholder="Hash值" v-model="strHash" style="width:200px;"></i-input>
+		</div>
+	</div>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/vue.min.js"></script>
+<script src="js/iview.min.js"></script>
+<script src="js/utils.js"></script>
+</body>
+</html>
