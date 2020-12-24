@@ -7,7 +7,15 @@ var vue = new Vue({
         newMiliaoId: "",
         UUID: "",
         str: "",
-        strHash: ""
+        strHash: "",
+        util3: {
+            input1: "",
+            input2: "",
+            type: "交集",
+            resultShow: false,
+            result: "",
+            input3: ""
+        }
     },
     methods: {
         timestamp2time() {
@@ -77,7 +85,31 @@ var vue = new Vue({
                 return num &= 0xFFFFFFFF;  
             }  
             return num;  
-        }  
-        
+        },
+        // 计算两个集合的交集，并集，差集
+        calculateSet() {
+            let str1 = this.util3.input1;
+            let str2 = this.util3.input2;
+            let set1 = str1.split(",");
+            let set2 = str2.split(",");
+
+            let res;
+            if(this.util3.type == "交集"){
+                res = set1.filter(function(v){ return set2.indexOf(v) > -1 });
+            }else if(this.util3.type == "并集") {
+                res = set1.concat(set2.filter(function(v){ return !(set1.indexOf(v) > -1)}));
+            }else if(this.util3.type == "差集") {
+                res = set1.filter(function(v){ return set2.indexOf(v) == -1 });
+            }
+
+            // 数组去重
+            this.util3.input3 = [...new Set(res)];
+
+            let len1 = set1.length;
+            let len2 = set2.length;
+            let len3 = this.util3.input3.length;
+            this.util3.resultShow = true;
+            this.util3.result = "第一个集合长度：" + len1 + ", 第一个集合长度：" + len2 + ", 结果集合长度：" + len3;
+        }
     },
 })

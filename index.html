@@ -9,23 +9,46 @@
 <body>
 	<div id="vue" class="container">
 		<h2>小工具集</h2>
-		<h3>1.时间戳转换:</h3>
+
+		<h3>1.时间戳转换(毫秒):</h3>
 		<div style="margin: 20px 0;">
-			<i-input clearable placeholder="时间戳" v-model="timestamp"  style="width:200px;"></i-input>
-			<i-button type="primary" @click="timestamp2time">时间戳---时间</i-button>
-			<i-input clearable placeholder="时间" v-model="time" style="width:200px;"></i-input>
+			<i-input clearable placeholder="时间戳" v-model="timestamp"  style="width:300px;"></i-input>
+			<i-button type="primary" @click="timestamp2time">时间戳>>时间</i-button>
+			<i-input clearable placeholder="时间，eg:2020-12-24 20:00:29" v-model="time" style="width:300px;"></i-input>
 		</div>
 		<div style="margin: 20px 0;">
-			<i-input clearable placeholder="时间" v-model="time" style="width:200px;"></i-input>
-			<i-button type="primary" @click="time2timestamp">时间---时间戳</i-button>
-			<i-input clearable placeholder="时间戳" v-model="timestamp" style="width:200px;"></i-input>
+			<i-input clearable placeholder="时间，eg:2020-12-24 20:00:29" v-model="time" style="width:300px;"></i-input>
+			<i-button type="primary" @click="time2timestamp">时间>>时间戳</i-button>
+			<i-input clearable placeholder="时间戳" v-model="timestamp" style="width:300px;"></i-input>
 		</div>
 
 		<h3>2.String类型的hashCode:</h3>
 		<div style="margin: 20px 0;">
-			<i-input clearable placeholder="字符串" v-model="str"  style="width:200px;"></i-input>
-			<i-button type="primary" @click="str2hash">字符串---Hash</i-button>
-			<i-input clearable placeholder="Hash值" v-model="strHash" style="width:200px;"></i-input>
+			<i-input clearable placeholder="字符串" v-model="str"  style="width:300px;"></i-input>
+			<i-button type="primary" @click="str2hash">字符串>>Hash</i-button>
+			<i-input clearable placeholder="Hash值" v-model="strHash" style="width:300px;"></i-input>
+		</div>
+
+		<h3>3.集合交集/并集/差集:</h3>
+		<div style="margin: 20px 0;">
+			<div style="width: 45%; float: left;">
+				<i-input v-model="util3.input1" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="集合1,英文逗号分隔符分开"/>
+			</div>
+			<div style="width: 45%; float: left; margin: 0 10px;">
+				<i-input v-model="util3.input2" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="集合2,英文逗号分隔符分开"/>
+			</div>
+			<div style="margin: 10px 0;display: inline-block;">
+				<radio-group v-model="util3.type" type="button">
+					<Radio label="交集"></Radio>
+					<Radio label="并集"></Radio>
+					<Radio label="差集"></Radio>
+				</radio-group>
+				<i-button type="primary" @click="calculateSet">计算</i-button>
+			</div>
+			<Alert type="success" v-if="util3.resultShow">{{util3.result}}</Alert>
+			<div>
+				<i-input v-model="util3.input3" type="textarea" :autosize="{minRows: 5,maxRows: 10}" placeholder="结果"/>
+			</div>
 		</div>
 	</div>
 <script src="js/jquery-1.10.2.js"></script>
