@@ -13,7 +13,9 @@ var vue = new Vue({
             input2: "",
             type: "交集",
             resultShow: false,
+            resultError: false,
             result: "",
+            resultError: "",
             input3: ""
         }
     },
@@ -88,8 +90,16 @@ var vue = new Vue({
         },
         // 计算两个集合的交集，并集，差集
         calculateSet() {
-            let str1 = this.util3.input1;
-            let str2 = this.util3.input2;
+            // 去掉所有空格
+            let str1 = this.util3.input1.replace(/\s/ig,"");
+            let str2 = this.util3.input2.replace(/\s/ig,"");
+            if(str1 == "" || str2 == ""){
+                // 错误提示框
+                this.util3.resultShow = false;
+                this.util3.resultError = true;
+                this.util3.resultError = "集合不能为空!";
+                return;
+            }
             let set1 = str1.split(",");
             let set2 = str2.split(",");
 
@@ -108,8 +118,11 @@ var vue = new Vue({
             let len1 = set1.length;
             let len2 = set2.length;
             let len3 = this.util3.input3.length;
+
+            // 提示框
+            this.util3.resultError = false;
             this.util3.resultShow = true;
-            this.util3.result = "第一个集合长度：" + len1 + ", 第一个集合长度：" + len2 + ", 结果集合长度：" + len3;
+            this.util3.result = "第一个集合长度：" + len1 + ", 第二个集合长度：" + len2 + ", 结果集合长度：" + len3;
         }
     },
 })

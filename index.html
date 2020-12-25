@@ -53,7 +53,8 @@
 						</radio-group>
 						<i-button type="primary" @click="calculateSet" icon="ios-calculator">计算</i-button>
 					</div>
-					<Alert type="success" v-if="util3.resultShow">{{util3.result}}</Alert>
+					<Alert type="success" v-if="util3.resultShow" show-icon>{{util3.result}}</Alert>
+					<Alert type="error" v-if="util3.resultError" show-icon>{{util3.resultError}}</Alert>
 					<div>
 						<i-input v-model="util3.input3" type="textarea" :autosize="{minRows: 5,maxRows: 10}" placeholder="结果"/>
 					</div>
