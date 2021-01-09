@@ -1,34 +1,44 @@
 var vue = new Vue({
     el: "#vue",
     data: {
-        timestamp: "",
-        time: "",
-        oldMiliaoId: "",
-        newMiliaoId: "",
-        UUID: "",
-        str: "",
-        strHash: "",
+        fold: [],
+        util1: {
+            timestamp: "",
+            time: ""
+        },
+        util2: {
+            str: "",
+            strHash: ""
+        },
         util3: {
             input1: "",
             input2: "",
             type: "交集",
             resultShow: false,
-            resultError: false,
+            resultErrorShow: false,
             result: "",
             resultError: "",
             input3: ""
         },
         util4: {
             input1: "",
-            input2: ""
+            input2: "",
+            resultErrorShow: false,
+            resultError: ""
         }
     },
     methods: {
+        unfold() {
+            this.fold = [1,2,3,4];
+        },
+        foldAll() {
+            this.fold = [];
+        },
         timestamp2time() {
-            this.time = this.time2str2(this.timestamp);
+            this.util1.time = this.time2str2(this.util1.timestamp);
         },
         time2timestamp() {
-            this.timestamp = this.toTimestamp(this.time);
+            this.util1.timestamp = this.toTimestamp(this.util1.time);
         },
         // 时间戳转换成时间
         time2str(val) {
@@ -65,14 +75,14 @@ var vue = new Vue({
         },
         //String转hash
         str2hash() {
-            let str = this.str;
+            let str = this.util2.str;
             let hash = new Number(0);
             for(let i = 0; i < str.length; i++){
                 let char = str.charAt(i);
                 hash = 31 * hash + new Number(char.charCodeAt());
             }
             hash = this.toJavaInt(hash);
-            this.strHash = "" + hash;
+            this.util2.strHash = "" + hash;
         },
         /** 
          * 将js页面的number类型转换为java的int类型 
@@ -100,7 +110,7 @@ var vue = new Vue({
             if(str1 == "" || str2 == ""){
                 // 错误提示框
                 this.util3.resultShow = false;
-                this.util3.resultError = true;
+                this.util3.resultErrorShow = true;
                 this.util3.resultError = "集合不能为空!";
                 return;
             }
@@ -124,19 +134,32 @@ var vue = new Vue({
             let len3 = this.util3.input3.length;
 
             // 提示框
-            this.util3.resultError = false;
+            this.util3.resultErrorShow = false;
             this.util3.resultShow = true;
             this.util3.result = "第一个集合长度：" + len1 + ", 第二个集合长度：" + len2 + ", 结果集合长度：" + len3;
         },
         // 分类汇总
         groupBy() {
             let str1 = this.util4.input1;
+            if(str1.replace(/\s/ig,"") == "") {
+                this.util4.resultErrorShow = true;
+                this.util4.resultError = "参数不能为空";
+                this.util4.input2 = "";
+                return;
+            }
             let arr1 = str1.split("\n");
             let map = new Map();
+            // 解析入参并存入map
             for(let i = 0; i < arr1.length; i++) {
                 let lineStr = arr1[i];
                 let arr2 = lineStr.split(":"); 
                 let key = arr2[0], value = arr2[1];
+                if(value == undefined) {
+                    this.util4.resultErrorShow = true;
+                    this.util4.resultError = "参数不合法:" + key;
+                    this.util4.input2 = "";
+                    return;
+                }
                 if(map.has(key)) {
                     map.get(key).add(value);
                 }else {
@@ -146,13 +169,15 @@ var vue = new Vue({
                 }
             }
 
+            // 构造结果
             let result = "";
             for(let item of map) {
                 let key = item[0], value = item[1];
                 result = result+ key + ":【" + value.size + "个】\n";
-                result = result + Array.from(value) + "\n\n";
+                result = result + ("" + Array.from(value)).replace(/\s/ig,"") + "\n\n";
             }
 
+            this.util4.resultErrorShow = false;
             this.util4.input2 = result;
         }
     },

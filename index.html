@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>小工具集</title>
+	<title>小工具</title>
 	<link rel="icon" href="./img/坏笑.png" type="image/x-icon" />
 	<link href="css/iview.css" rel="stylesheet"/>
 	<!-- <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css"> -->
@@ -13,12 +13,88 @@
 		<Layout class="layout">
 			<Header>
 				<div style="width: 100%; height: 70px; line-height: 70px; background-color: currentColor;">
-					<h2 style="color: white; margin: 0 60px;"><span><Icon type="md-planet" /></span>   小工具集</h2>
+					<h2 style="color: white; margin: 0 60px;"><span><Icon type="md-planet" /></span>   小工具</h2>
 				</div>
 			</Header>
 			<Content class="content">
 
-				<h3>1.时间戳转换(毫秒):</h3>
+				<div style="margin: 10px 0;">
+					<i-button type="success" ghost icon="md-expand" @click="unfold">展开全部</i-button>
+					<i-button type="error" ghost icon="md-contract" @click="foldAll">折叠全部</i-button>
+				</div>
+				<Collapse v-model="fold">
+					<Panel name="1">
+						1.时间戳转换(毫秒)
+						<div slot="content">
+							<div style="margin: 20px 0;">
+								<i-input clearable placeholder="时间戳" v-model="util1.timestamp"  style="width:300px;"></i-input>
+								<i-button type="primary" @click="timestamp2time">时间戳>>时间</i-button>
+								<i-input clearable placeholder="时间，eg:2020-12-24 20:00:29" v-model="util1.time" style="width:300px;"></i-input>
+							</div>
+							<div style="margin: 20px 0;">
+								<i-input clearable placeholder="时间，eg:2020-12-24 20:00:29" v-model="util1.time" style="width:300px;"></i-input>
+								<i-button type="primary" @click="time2timestamp">时间>>时间戳</i-button>
+								<i-input clearable placeholder="时间戳" v-model="util1.timestamp" style="width:300px;"></i-input>
+							</div>
+						</div>
+					</Panel>
+
+					<Panel name="2">
+						2.String类型的hashCode
+						<div slot="content">
+							<div style="margin: 20px 0;">
+								<i-input clearable placeholder="字符串" v-model="util2.str"  style="width:300px;"></i-input>
+								<i-button type="primary" @click="str2hash">字符串>>Hash</i-button>
+								<i-input clearable placeholder="Hash值" v-model="util2.strHash" style="width:300px;"></i-input>
+							</div>
+						</div>
+					</Panel>
+
+					<Panel name="3">
+						3.集合交集/并集/差集
+						<div slot="content">
+							<div style="margin: 20px 0;">
+								<div style="width: 45%; float: left;">
+									<i-input v-model="util3.input1" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="集合1,英文逗号分隔符分开"/>
+								</div>
+								<div style="width: 45%; float: left; margin: 0 10px;">
+									<i-input v-model="util3.input2" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="集合2,英文逗号分隔符分开"/>
+								</div>
+								<div style="margin: 10px 0;display: inline-block;">
+									<radio-group v-model="util3.type">
+										<Radio label="交集" ></Radio>
+										<Radio label="并集" ></Radio>
+										<Radio label="差集" ></Radio>
+									</radio-group>
+									<i-button type="primary" @click="calculateSet" icon="ios-calculator">计算</i-button>
+								</div>
+								<Alert type="success" v-if="util3.resultShow" show-icon>{{util3.result}}</Alert>
+								<Alert type="error" v-if="util3.resultErrorShow" show-icon>{{util3.resultError}}</Alert>
+								<div>
+									<i-input v-model="util3.input3" type="textarea" :autosize="{minRows: 5,maxRows: 10}" placeholder="结果"/>
+								</div>
+							</div>
+						</div>
+					</Panel>
+
+					<Panel name="4">
+						4.分类汇总
+						<div slot="content">
+							<div style="margin: 20px 0;">
+								<div style="width: 45%;">
+									<i-input v-model="util4.input1" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="格式:&#13;&#10;key1:value1&#13;&#10;key1:value2&#13;&#10;key2:value3"/>
+								</div>
+								<i-button type="primary" @click="groupBy" icon="ios-calculator" style="margin: 10px 0;">计算</i-button>
+								<Alert type="error" v-if="util4.resultErrorShow" show-icon>{{util4.resultError}}</Alert>
+								<div style="width: 45%;">
+									<i-input v-model="util4.input2" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="结果:&#13;&#10;key1:&#13;&#10;value1,value2&#13;&#10;&#13;&#10;key2:&#13;&#10;value3"/>
+								</div>
+							</div>
+						</div>
+					</Panel>
+				</Collapse>
+
+				<!-- <h3>1.时间戳转换(毫秒):</h3>
 				<div style="margin: 20px 0;">
 					<i-input clearable placeholder="时间戳" v-model="timestamp"  style="width:300px;"></i-input>
 					<i-button type="primary" @click="timestamp2time">时间戳>>时间</i-button>
@@ -54,7 +130,7 @@
 						<i-button type="primary" @click="calculateSet" icon="ios-calculator">计算</i-button>
 					</div>
 					<Alert type="success" v-if="util3.resultShow" show-icon>{{util3.result}}</Alert>
-					<Alert type="error" v-if="util3.resultError" show-icon>{{util3.resultError}}</Alert>
+					<Alert type="error" v-if="util3.resultErrorShow" show-icon>{{util3.resultError}}</Alert>
 					<div>
 						<i-input v-model="util3.input3" type="textarea" :autosize="{minRows: 5,maxRows: 10}" placeholder="结果"/>
 					</div>
@@ -66,10 +142,11 @@
 						<i-input v-model="util4.input1" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="格式:&#13;&#10;key1:value1&#13;&#10;key1:value2&#13;&#10;key2:value3"/>
 					</div>
 					<i-button type="primary" @click="groupBy" icon="ios-calculator" style="margin: 10px 0;">计算</i-button>
+					<Alert type="error" v-if="util4.resultErrorShow" show-icon>{{util4.resultError}}</Alert>
 					<div style="width: 45%;">
 						<i-input v-model="util4.input2" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="结果:&#13;&#10;key1:&#13;&#10;value1,value2&#13;&#10;&#13;&#10;key2:&#13;&#10;value3"/>
 					</div>
-				</div>
+				</div> -->
 				
 			</Content>
 			<Footer class="footer">
