@@ -59,6 +59,17 @@
 						<i-input v-model="util3.input3" type="textarea" :autosize="{minRows: 5,maxRows: 10}" placeholder="结果"/>
 					</div>
 				</div>
+
+				<h3>4.分类汇总:</h3>
+				<div style="margin: 20px 0;">
+					<div style="width: 45%;">
+						<i-input v-model="util4.input1" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="格式:&#13;&#10;key1:value1&#13;&#10;key1:value2&#13;&#10;key2:value3"/>
+					</div>
+					<i-button type="primary" @click="groupBy" icon="ios-calculator" style="margin: 10px 0;">计算</i-button>
+					<div style="width: 45%;">
+						<i-input v-model="util4.input2" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="结果:&#13;&#10;key1:&#13;&#10;value1,value2&#13;&#10;&#13;&#10;key2:&#13;&#10;value3"/>
+					</div>
+				</div>
 				
 			</Content>
 			<Footer class="footer">

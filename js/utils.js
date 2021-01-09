@@ -17,6 +17,10 @@ var vue = new Vue({
             result: "",
             resultError: "",
             input3: ""
+        },
+        util4: {
+            input1: "",
+            input2: ""
         }
     },
     methods: {
@@ -123,6 +127,33 @@ var vue = new Vue({
             this.util3.resultError = false;
             this.util3.resultShow = true;
             this.util3.result = "第一个集合长度：" + len1 + ", 第二个集合长度：" + len2 + ", 结果集合长度：" + len3;
+        },
+        // 分类汇总
+        groupBy() {
+            let str1 = this.util4.input1;
+            let arr1 = str1.split("\n");
+            let map = new Map();
+            for(let i = 0; i < arr1.length; i++) {
+                let lineStr = arr1[i];
+                let arr2 = lineStr.split(":"); 
+                let key = arr2[0], value = arr2[1];
+                if(map.has(key)) {
+                    map.get(key).add(value);
+                }else {
+                    let set3 = new Set();
+                    set3.add(value);
+                    map.set(key, set3);
+                }
+            }
+
+            let result = "";
+            for(let item of map) {
+                let key = item[0], value = item[1];
+                result = result+ key + ":【" + value.size + "个】\n";
+                result = result + Array.from(value) + "\n\n";
+            }
+
+            this.util4.input2 = result;
         }
     },
 })
