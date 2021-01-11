@@ -152,7 +152,8 @@ var vue = new Vue({
             // 解析入参并存入map
             for(let i = 0; i < arr1.length; i++) {
                 let lineStr = arr1[i];
-                let arr2 = lineStr.split(":"); 
+                // 分隔符：空格
+                let arr2 = lineStr.split(/\s+/); 
                 let key = arr2[0], value = arr2[1];
                 if(value == undefined) {
                     this.util4.resultErrorShow = true;
