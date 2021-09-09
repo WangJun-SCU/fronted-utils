@@ -25,6 +25,13 @@ var vue = new Vue({
             input2: "",
             resultErrorShow: false,
             resultError: ""
+        },
+        util5: {
+            lngLat1: "",
+            lngLat2: "",
+            result: "",
+            resultErrorShow: false,
+            resultError:""
         }
     },
     methods: {
@@ -180,6 +187,43 @@ var vue = new Vue({
 
             this.util4.resultErrorShow = false;
             this.util4.input2 = result;
+        },
+        Rad(d) {
+            return d * Math.PI / 180.0;//经纬度转换成三角函数中度分表形式。
+         },
+        //计算两个经纬度点的距离
+        lngAndLatDistance() {
+            let str1 = this.util5.lngLat1;
+            let str2 = this.util5.lngLat2;
+            let arr1 = str1.split(",");
+            let arr2 = str2.split(",");
+
+            if(arr1.length < 2|| arr2.length < 2){
+                this.util5.resultErrorShow = true;
+                this.util5.resultError= "参数不合法";
+                return;
+            }
+
+            this.util5.resultErrorShow = false;
+
+            let lng1 = arr1[0] / 1000000;
+            let lat1 = arr1[1] / 1000000;
+            let lng2 = arr2[0] / 1000000;
+            let lat2 = arr2[1] / 1000000;
+
+
+            var radLat1 = lat1 * Math.PI / 180.0; //经纬度转换成三角函数中度分表形式
+            var radLat2 = lat2 * Math.PI / 180.0; //经纬度转换成三角函数中度分表形式
+            var a = radLat1 - radLat2;
+            var radLng1 = lng1 * Math.PI / 180.0; //经纬度转换成三角函数中度分表形式
+            var radLng2 = lng2 * Math.PI / 180.0; //经纬度转换成三角函数中度分表形式
+            var b = radLng1 - radLng2;
+            var s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a/2),2) +
+            Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
+            s = s * 6378.137 ;// EARTH_RADIUS;
+            s = Math.round(s * 10000) / 10000; //输出为km
+            s = s.toFixed(3);
+            this.util5.result = s + "km";
         }
     },
 })
