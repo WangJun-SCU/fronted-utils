@@ -222,8 +222,8 @@ var vue = new Vue({
             Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
             s = s * 6378.137 ;// EARTH_RADIUS;
             s = Math.round(s * 10000) / 10000; //输出为km
-            s = s.toFixed(3);
-            this.util5.result = s + "km";
+            s = s.toFixed(3) * 1000; //输出为m
+            this.util5.result = s;
         }
     },
 })
