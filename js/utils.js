@@ -32,6 +32,11 @@ var vue = new Vue({
             result: "",
             resultErrorShow: false,
             resultError:""
+        },
+        util6: {
+            input1: "",
+            input2: "",
+            input3: ""
         }
     },
     methods: {
@@ -224,6 +229,25 @@ var vue = new Vue({
             s = Math.round(s * 10000) / 10000; //输出为km
             s = s.toFixed(3) * 1000; //输出为m
             this.util5.result = s;
+        },
+        // 首位加字符
+        addString() {
+            let input1 = this.util6.input1;
+            let input3 = this.util6.input3;
+
+            let arr = input1.split(",");
+
+            let result = "";
+            if(input3 == "") {
+                input3 = "400";
+            }
+            for(let i = 0; i < arr.length; i++) {
+                result += input3 + arr[i];
+                if(i != arr.length - 1) {
+                    result += ",";
+                }
+            }
+            this.util6.input2 = result;
         }
     },
 })

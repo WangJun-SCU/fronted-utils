@@ -105,6 +105,25 @@
 							</div>
 						</div>
 					</Panel>
+
+					<Panel name="6">
+						6.首位加字符
+						<div slot="content">
+							<div style="margin: 20px 0;">
+								<div style="width: 45%; float: left;">
+									<i-input v-model="util6.input1" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="集合,英文逗号分隔符分开"/>
+								</div>
+								<div style="width: 45%; float: left; margin: 0 10px;">
+									<i-input v-model="util6.input2" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="计算结果"/>
+								</div>
+								<div style="margin: 10px 0;display: inline-block;">
+									<i-input v-model="util6.input3" placeholder="首字母需要加的字符,默认400(for压测)" style="width:300px;"/>
+								</div>
+								<i-button type="primary" @click="addString" icon="ios-calculator">计算</i-button>
+							</div>
+						</div>
+					</Panel>
+
 				</Collapse>
 				
 			</Content>
