@@ -232,7 +232,7 @@ var vue = new Vue({
         },
         // 首位加字符
         addString() {
-            let input1 = this.util6.input1;
+            let input1 = this.util6.input1.replace(/\s/ig,""); //去掉所有空格
             let input3 = this.util6.input3;
 
             let arr = input1.split(",");
