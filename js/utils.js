@@ -37,6 +37,11 @@ var vue = new Vue({
             input1: "",
             input2: "",
             input3: ""
+        },
+        util7: {
+            input1: "",
+            input2: "",
+            input3: ""
         }
     },
     methods: {
@@ -248,6 +253,33 @@ var vue = new Vue({
                 }
             }
             this.util6.input2 = result;
+        },
+        // 生成压测配置，补充所有线上城市对应的压测城市
+        generatePtestData() {
+            let input1 = this.util7.input1.replace(/\s/ig,""); //去掉所有空格
+            let arr = input1.split(",");
+            let resultOnline = "";
+            let resultPtest = "";
+
+            for(let i = 0; i < arr.length; i++) {
+                let item = arr[i];
+                if(item.length == 6) {
+                    if(resultOnline == "") {
+                        resultOnline = resultOnline + item;
+                        resultPtest = resultPtest + "400" + item;
+                    }else {
+                        resultOnline = resultOnline + "," + item;
+                        resultPtest = resultPtest + ",400" + item;
+                    }
+                    
+                }
+            }
+            this.util7.input2 = resultOnline + "," + resultPtest;
+
+            let arrResult = this.util7.input2.split(",");
+
+            // 求结果对原始数据的差集
+            this.util7.input3 = arrResult.filter(function(v){ return input1.indexOf(v) == -1 });
         }
     },
 })

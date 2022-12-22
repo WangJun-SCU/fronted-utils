@@ -124,6 +124,24 @@
 						</div>
 					</Panel>
 
+					<Panel name="7">
+						7.生成压测配置
+						<div slot="content">
+							<div style="margin: 20px 0; display: inline-block; width: 100%;">
+								<div style="width: 45%; float: left;">
+									<i-input v-model="util7.input1" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="集合,英文逗号分隔符分开"/>
+								</div>
+								<div style="width: 45%; float: left; margin: 0 10px;">
+									<i-input v-model="util7.input2" type="textarea" :autosize="{minRows: 10,maxRows: 10}" placeholder="计算结果"/>
+								</div>
+							</div>
+							<div>
+								<i-button type="primary" @click="generatePtestData" icon="ios-calculator">计算</i-button>
+								<i-input v-model="util7.input3" placeholder="结果对原始数据的差集" type="textarea" :autosize="{minRows: 10,maxRows: 10}" style="margin-top: 10px;"/>
+							</div>
+						</div>
+					</Panel>
+
 				</Collapse>
 				
 			</Content>
